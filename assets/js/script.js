@@ -60,47 +60,59 @@ var startQuiz = function() {
     var answer3 = document.getElementById("op3");
     var answer4 = document.getElementById("op4");
 
-    // If user gets a right answer, go to next question. If not, go to next question with time deduction.
+    // If user gets a correct answer, go to the next question. 
     var answerClicked = false
     document.getElementById("op3").addEventListener("click", function() {
         if (answerClicked = true) {
+            // show the next question 
             var Question2 = document.getElementById("question");
             Question2.textContent = questions[1].questionTwo;
+            // show answer options
+            answer1.textContent = questions[1].optionA;
+            answer2.textContent = questions[1].optionB;
+            answer3.textContent = questions[1].optionC;
+            answer4.textContent = questions[1].optionD;
+            // show correct/wrong answer result
+            var quizResult = document.getElementById("result");
+            var correctResult = document.createElement("h3");
+            correctResult.textContent = "Correct!";
+            quizResult.appendChild(correctResult);
         }
-        else {
 
-        }
     })
-};
 
+    // If user gets a wrong answer, go to next question with time deduction.
+    document.querySelectorAll("#op1, #op2, #op4").forEach(el => el.addEventListener("click", function() {
+        if (answerClicked = true) {
+            // show the next question 
+            var Question2 = document.getElementById("question");
+            Question2.textContent = questions[1].questionTwo;
+            // show answer options
+            answer1.textContent = questions[1].optionA;
+            answer2.textContent = questions[1].optionB;
+            answer3.textContent = questions[1].optionC;
+            answer4.textContent = questions[1].optionD;
+            // show correct/wrong answer result
+            var quizResult = document.getElementById("result");
+            var wrongResult = document.createElement("h3");
+            wrongResult.textContent = "Wrong!";
+            quizResult.appendChild(wrongResult);
+        }
+    }))
+};
+        
 setInterval(quizTimer, 1000);
 
 var totalTime = 76;
 var quizTimer = setInterval(function() {
     totalTime = totalTime - 1;
-    if (totalTime <= 0) {
+    if (totalTime < 0) {
         clearInterval(totalTime);
     }
     else {
         document.getElementById("time").innerHTML = totalTime;
     }
 }, 1000);
-
-
-
-
- 
-
-
-/* var hideQuizBox = function() {
-    var quizBox = document.getElementById("quiz-box");
-    if (quizBox.style.display === "block") {
-        quizBox.style.display = "none";
-    }
-    else {
-        quizBox.style.display = "block";
-    }
-}; */
 
 // hide quiz start container
 var hideStartBox = function() {
@@ -112,19 +124,5 @@ var hideStartBox = function() {
         startBox.style.display = "none";
     }
 };
-
-
-var createOptions = function() {
-    var optionListEl = document.createElement("div");
-    optionListEl.className = "answer-options";
-    
-    var optionBtn1 = document.createElement("button");
-    optionBtn1.textContent = questions[0].optionA;
-    optionBtn1.className = "option-btn";
-
-    optionListEl.appendChild(optionBtn1);
-};
-
-
 
 startBtn.addEventListener("click", startQuiz);
