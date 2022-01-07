@@ -14,15 +14,29 @@
     </header>
 
     <main>
-        <div class="quiz-box">
-            <div>
-                <h2 class="questions">Coding Quiz Challenge</h2>
+        <div class="start-box" id="start-box">
+            <div class="title-box">
+                <h2 class="title">Quiz Challenge</h2>
             </div>
-            <div>
+            <div class="description-box">
                 <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
             </div>
-            <div >
-                <button class="start-btn">Start Quiz</button>
+            <div class="start-btn-box">
+                <button class="start-btn" id="start-btn">Start Quiz</button>
+            </div>
+        </div>
+
+        <div class="quiz-box" id="quiz-box">
+            <div class="question-box">
+                <h2 class="question" id="question"><span>Commonly used data types DO NOT include:</span></h2>
+            </div>
+            <div class="answer-btn-box">
+                <ul class="answer-list">
+                    <li><button class="options" id="op1"><span>1.strings</span></button></li>
+                    <li><button class="options" id="op2"><span>2.booleans</span></button></li>
+                    <li><button class="options" id="op3"><span>3.alerts</span></button></li>
+                    <li><button class="options" id="op4"><span>4.numbers</span></button></li>
+                </ul>
             </div>
         </div>
     </main>

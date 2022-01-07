@@ -2,7 +2,7 @@
     text-align: right;
 }
 
-.quiz-box {
+.start-box, .quiz-box, .answer-options {
     display: flex;
     justify-content: center;
     margin-left: 20%;
@@ -11,16 +11,43 @@
     width: 60%;
 }
 
-.questions, p {
+.description-box, .title-box, .start-btn-box {
+    display: flex;
+    justify-content: center;
+    width: 70%;
+}
+
+.question-box, .answer-btn-box {
+    display: flex;
+    width: 70%;
+}
+
+
+.title, p {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: center;
 }
 
+.question {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 
-.start-btn {
+ul.answer-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.start-btn, .options, .option-btn {
     background-color: #bdb2ff;
     color: white;
     font-size: 2vh;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     border-radius: 10px;
     border-color: #bdb2ff;
+    margin: 3px;
+}
+
+.start-btn:hover, .options:hover {
+    opacity: 0.5;
 }
