@@ -73,6 +73,24 @@ var startQuiz = function() {
     })
 };
 
+setInterval(quizTimer, 1000);
+
+var totalTime = 76;
+var quizTimer = setInterval(function() {
+    totalTime = totalTime - 1;
+    if (totalTime <= 0) {
+        clearInterval(totalTime);
+    }
+    else {
+        document.getElementById("time").innerHTML = totalTime;
+    }
+}, 1000);
+
+
+
+
+ 
+
 
 /* var hideQuizBox = function() {
     var quizBox = document.getElementById("quiz-box");
