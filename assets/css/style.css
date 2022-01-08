@@ -46,7 +46,7 @@ ul.opt-list {
     padding: 0;
 }
 
-.start-btn, .options {
+.start-btn, .option1, .option2, .option3, .option4 {
     background-color: #bdb2ff;
     color: white;
     font-size: 2.3vh;
