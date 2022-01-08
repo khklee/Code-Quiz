@@ -2,10 +2,19 @@
     text-align: right;
 }
 
-.start-box, .quiz-box, .answer-options {
+.start-box {
     display: flex;
     justify-content: center;
     margin-left: 20%;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 60%;
+}
+
+.quiz-box, .answer-options {
+    display: flex;
+    justify-content: center;
+    margin-left: 30%;
     align-items: center;
     flex-wrap: wrap;
     width: 60%;
@@ -58,4 +67,31 @@ ul.answer-list {
     font-style: italic;
     padding: 0 0 0 10px;
     margin-top: 10px;
+    margin-left: 25%;
+    display: flex;
+    align-self: center;
+    width: 50%;
+}
+
+.input-div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-input {
+    margin-left: 10px;
+    height: 20px;
+    border: solid #610b61;
+}
+
+.submit-btn {
+    margin-left: 10px;
+    background-color: #bdb2ff;
+    color: white;
+    font-size: 2vh;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-radius: 10px;
+    border-color: #bdb2ff;
 }
