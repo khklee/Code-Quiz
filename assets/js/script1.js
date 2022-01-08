@@ -42,6 +42,10 @@ const questions = [
 
 var startBtn = document.getElementById("start-btn");
 var startBox = document.getElementById("start-box");
+var endTtile = document.getElementById("title");
+var scoreDescription = document.getElementById("how-to");
+
+var quizBox = document.getElementById("quiz-box");
 var result = document.getElementById("result");
 
 var optListOne = document.getElementById("li1");
@@ -61,7 +65,7 @@ optFour.className = "option4";
 
 var startQuiz = function () {
     // hide start box 
-    startBox.remove();
+    startBox.style.display = "none";
     // show first question and options
     showQuizOne();
     // when a user clicks an option
@@ -220,11 +224,13 @@ var fifthQuestEl = function () {
      // If If a user click a right option, the option 4, go to the end page with result
      document.querySelector(".option4").addEventListener("click", function() {
         correctAnswer();
+        endPage();
     })
 
     // If a user click a wrong option, the option 1, or 2, 3, go to the end page with result and subtract the time
     document.querySelectorAll(".option1, .option2, .option3").forEach(el => el.addEventListener("click", function() {
         wrongAnswer();
+        endPage();
     }))
 }
 
@@ -237,5 +243,47 @@ var correctAnswer = function () {
 var wrongAnswer = function () {
     result.textContent = "Wrong!";
 };
+
+// show the end page
+var endPage = function () {
+    // remove quiz box 
+    quizBox.style.display = "none";
+    // show start container
+    startBox.style.display = "flex";
+    // change the title    
+    endTtile.textContent = "All done!";
+    // show the final score
+    scoreDescription.textContent = "Your final score is" + ".";
+    // change the start button to submit
+    createSubmit();
+    // set timeout to remove the result
+    setTimeout(function () {
+        result.style.display = "none";
+    }, 5000);
+
+    clearInterval(totalTime);
+};
+
+
+var createSubmit = function () {
+    var startBtnDiv = document.getElementById("start-btn-box");
+    startBtnDiv.remove();
+    var inputDiv = document.createElement("div");
+    var textInput = document.createElement("input");
+    var enterInitials = document.createElement("p");
+    var submitBtn = document.createElement("button")
+    inputDiv.className = "input-div";
+    enterInitials.className = "enter-initials";
+    enterInitials.textContent = "Enter initials:";
+    textInput.type = "text";
+    textInput.className = "text-input";
+    submitBtn.className = "submit-btn";
+    submitBtn.textContent = "Submit";
+    
+    startBox.appendChild(inputDiv);
+    inputDiv.appendChild(enterInitials);
+    inputDiv.appendChild(textInput);
+    inputDiv.appendChild(submitBtn);
+}
 
 startBtn.addEventListener("click", startQuiz);
