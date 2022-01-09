@@ -1,5 +1,13 @@
 const questions = [
     {
+        questionOne: "Commonly used data types DO NOT include:",
+        optionA: "1.strings",
+        optionB: "2.booleans",
+        optionC: "3.alerts",
+        optionD: "4.numbers",
+    },
+
+    {
         questionTwo: "The condition in an if / else statement is enclosed within _____.",
         optionA: "1.quotes", 
         optionB: "2.curly brackets",
@@ -32,294 +40,333 @@ const questions = [
     }
 ];
 
-var answer1 = document.getElementById("op1");
-var answer2 = document.getElementById("op2");
-var answer3 = document.getElementById("op3");
-var answer4 = document.getElementById("op4");
-
+// declare variables
 var totalTime = 76;
+var score = document.getElementById("time");
 
-// hide quiz container
-document.getElementById("quiz-box").style.display = "none";
+var startBtn = document.getElementById("start-btn");
+var startBox = document.getElementById("start-box");
+var title = document.getElementById("title");
+var titleBox = document.getElementById("title-box");
+var scoreDescription = document.getElementById("how-to");
 
-// hide result container 
-document.getElementById("quiz-result").style.display = "none";
+var quizBox = document.getElementById("quiz-box");
 
-// set start button
-var startBtn = document.querySelector("#start-btn");
+var contentBox = document.getElementById("content-box");
+var optListOne = document.getElementById("li1");
+var optListTwo = document.getElementById("li2");
+var optListThree = document.getElementById("li3");
+var optListFour = document.getElementById("li4");
 
+var result = document.getElementById("result");
 
-// when start quiz button is clicked, quiz will start
-var startQuiz = function() {
-    // hide start container
-    hideStartBox();
+var quizTimer;
 
-    // show quiz container
-    document.getElementById("quiz-box").style.display = "block";
+var submitBtn = document.createElement("button");
 
+// start quiz 
+var startQuiz = function () {
+    // hide start box 
+    startBox.style.display = "none";
+    
     // set timer
     setInterval(quizTimer, 1000);
-        var quizTimer = setInterval(function() {
-            totalTime = totalTime - 1;
-            if (totalTime < 0) {
-                clearInterval(totalTime);
-            }
-            else if (wrongEl()) {
-                totalTime = totalTime - 15;
-            }
-            else {
-                document.getElementById("time").innerHTML = totalTime;
-            }
-        }, 1000);
+    quizTimer = setInterval(function() {
+        totalTime = totalTime - 1;
+        if (totalTime <= 0) {
+            clearInterval(totalTime);
+            endPage();
+        }
+        else {
+            document.getElementById("time").innerHTML = totalTime;
+        }
+    }, 1000);
+
+    // show first question and options
+    showQuizOne();
     
+    // when a user clicks an option
     firstQuestEl();
-};
+}
 
-// first question and answer
-var firstQuestEl = function() {
-    // If a user gets a correct answer for the first question, go to the second question. 
-    var answerClicked = false
-    console.log("in 1stQ");
-    document.getElementById("op3").addEventListener("click", function() {
-        answerClicked = true;
-        console.log("in op3 instener");
-
-        if (answerClicked == true) {
-            console.log("in 1stQ if");
-
-            // show the next question 
-            var quizQuestion = document.getElementById("question");
-            quizQuestion.textContent = questions[0].questionTwo;
-            // show answer options
-            answer1.textContent = questions[0].optionA;
-            answer2.textContent = questions[0].optionB;
-            answer3.textContent = questions[0].optionC;
-            answer4.textContent = questions[0].optionD;
-            // show correct answer result
-            correctEl();
-            // present the third question and options
-            secondQuestEl();
-        }
-    })
-
-    // If a user gets a wrong answer for the first question, go to second question and subtract from the clock.
-    document.querySelectorAll("#op1, #op2, #op4").forEach(el => el.addEventListener("click", function() {
-        console.log("in op1, 2, or 4 instener");
-
-        if (true) {
-            console.log("in op1, 2, or 4 instener if");
-
-            // show the next question 
-            var quizQuestion = document.getElementById("question");
-            quizQuestion.textContent = questions[0].questionTwo;
-            // show answer options
-            answer1.textContent = questions[0].optionA;
-            answer2.textContent = questions[0].optionB;
-            answer3.textContent = questions[0].optionC;
-            answer4.textContent = questions[0].optionD;
-            // show wrong answer result
-            wrongEl();
-            // subtract from the clock
-            // totalTime = totalTime - 15;
-            // present the third question and options
-            secondQuestEl();
-        }
-    }))
+// show quiz question 1 and options
+var showQuizOne = function () {
+    var firstQuestion = document.getElementById("question");
+    firstQuestion.textContent = questions[0].questionOne;
     
-};
+    var q1optOne = document.createElement("button");
+    var q1optTwo = document.createElement("button");
+    var q1optThree = document.createElement("button");
+    var q1optFour = document.createElement("button");
 
-// second question and answer
-var secondQuestEl = function() {    
-    // If a user gets a correct answer for the second question, go to the third question. 
-    document.getElementById("op3").addEventListener("click", function() {
-        if (answerClicked = true) {
-            // show the next question 
-            var quizQuestion = document.getElementById("question");
-            quizQuestion.textContent = questions[1].questionThree;
-            // show answer options
-            answer1.textContent = questions[1].optionA;
-            answer2.textContent = questions[1].optionB;
-            answer3.textContent = questions[1].optionC;
-            answer4.textContent = questions[1].optionD;
-            // show correct
-            correctEl();
-            // present the fourth question and options
-            thirdQuestEl();
-        }
-    })
-    // If a user gets a wrong answer for the second question, go to the third question and subtract from the clock.
-    document.querySelectorAll("#op1, #op2, #op4").forEach(el => el.addEventListener("click", function() {
-        if (answerClicked = true) {
-            // show the next question 
-            var quizQuestion = document.getElementById("question");
-            quizQuestion.textContent = questions[1].questionThree;
-            // show answer options
-            answer1.textContent = questions[1].optionA;
-            answer2.textContent = questions[1].optionB;
-            answer3.textContent = questions[1].optionC;
-            answer4.textContent = questions[1].optionD;
-            // show wrong answer result
-            wrongEl();
-            // subtract from the clock
-            // totalTime = totalTime - 15;
-            // present the fourth question and options
-            thirdQuestEl();
-        }
+    q1optOne.className = "option-btns q1option1";
+    q1optTwo.className = "option-btns q1option2";
+    q1optThree.className = "option-btns q1option3";
+    q1optFour.className = "option-btns q1option4";
+
+    q1optOne.textContent = questions[0].optionA;
+    q1optTwo.textContent = questions[0].optionB;
+    q1optThree.textContent = questions[0].optionC;
+    q1optFour.textContent = questions[0].optionD;
         
-    }))
-};
+    optListOne.appendChild(q1optOne);
+    optListTwo.appendChild(q1optTwo);
+    optListThree.appendChild(q1optThree);
+    optListFour.appendChild(q1optFour); 
+}
 
-// third question and answer
-var thirdQuestEl = function() {    
-    // If a user gets a correct answer for the third question, go to the fourth question. 
-    document.getElementById("op4").addEventListener("click", function() {
-        if (answerClicked = true) {
-            // show the next question 
-            var quizQuestion = document.getElementById("question");
-            quizQuestion.textContent = questions[2].questionFour;
-            // show answer options
-            answer1.textContent = questions[2].optionA;
-            answer2.textContent = questions[2].optionB;
-            answer3.textContent = questions[2].optionC;
-            answer4.textContent = questions[2].optionD;
-            // show correct result
-            correctEl();
-            // present the fifth question and options
-            fourthQuestEl();
-            
-        }
-    })
-    // If a user gets a wrong answer for the third question, go to the fourth question and subtract from the clock.
-    document.querySelectorAll("#op1, #op2, #op3").forEach(el => el.addEventListener("click", function() {
-        if (answerClicked = true) {
-            // show the next question 
-            var quizQuestion = document.getElementById("question");
-            quizQuestion.textContent = questions[2].questionFour;
-            // show answer options
-            answer1.textContent = questions[2].optionA;
-            answer2.textContent = questions[2].optionB;
-            answer3.textContent = questions[2].optionC;
-            answer4.textContent = questions[2].optionD;
-            // show wrong answer result
-            wrongEl();
-            // subtract from the clock
-            // totalTime = totalTime - 15;
-            // present the fifth question and options
-            fourthQuestEl();
-        }
+// show quiz question 2 and options
+var showQuizTwo = function () {
+    var secondQuestion = document.getElementById("question");
+    secondQuestion.textContent = questions[1].questionTwo;
+
+    var q2optOne = document.createElement("button");
+    var q2optTwo = document.createElement("button");
+    var q2optThree = document.createElement("button");
+    var q2optFour = document.createElement("button");
+
+    q2optOne.className = "option-btns q2option1";
+    q2optTwo.className = "option-btns q2option2";
+    q2optThree.className = "option-btns q2option3";
+    q2optFour.className = "option-btns q2option4";
+
+    q2optOne.textContent = questions[1].optionA;
+    q2optTwo.textContent = questions[1].optionB;
+    q2optThree.textContent = questions[1].optionC;
+    q2optFour.textContent = questions[1].optionD;
         
-    }))
-};
+    optListOne.appendChild(q2optOne);
+    optListTwo.appendChild(q2optTwo);
+    optListThree.appendChild(q2optThree);
+    optListFour.appendChild(q2optFour); 
+}
 
-// fourth question and answer
-var fourthQuestEl = function() {    
-    // If a user gets a correct answer for the fourth question, go to the fifth question. 
-    document.getElementById("op3").addEventListener("click", function() {
-        if (answerClicked = true) {
-            // show the next question 
-            var quizQuestion = document.getElementById("question");
-            quizQuestion.textContent = questions[3].questionFive;
-            // show answer options
-            answer1.textContent = questions[3].optionA;
-            answer2.textContent = questions[3].optionB;
-            answer3.textContent = questions[3].optionC;
-            answer4.textContent = questions[3].optionD;
-            // show correct result
-            correctEl();
-            // present the fifth question and options
-            fifthQuestEl();
-        }
-    })
-    // If a user gets a wrong answer for the fourth question, go to the fifth question and subtract from the clock.
-    document.querySelectorAll("#op1, #op2, #op4").forEach(el => el.addEventListener("click", function() {
-        if (answerClicked = true) {
-            // show the next question 
-            var quizQuestion = document.getElementById("question");
-            quizQuestion.textContent = questions[3].questionFive;
-            // show answer options
-            answer1.textContent = questions[3].optionA;
-            answer2.textContent = questions[3].optionB;
-            answer3.textContent = questions[3].optionC;
-            answer4.textContent = questions[3].optionD;
-            // show wrong answer result
-            wrongEl();
-            // subtract from the clock
-            // totalTime = totalTime - 15;
-            // present the fifth question and options
-            fifthQuestEl();
-        }
+// show quiz question 3 and options
+var showQuizThree = function () {
+    var thirdQuestion = document.getElementById("question");
+    thirdQuestion.textContent = questions[2].questionThree;
+    
+    var q3optOne = document.createElement("button");
+    var q3optTwo = document.createElement("button");
+    var q3optThree = document.createElement("button");
+    var q3optFour = document.createElement("button");
+
+    q3optOne.className = "option-btns q3option1";
+    q3optTwo.className = "option-btns q3option2";
+    q3optThree.className = "option-btns q3option3";
+    q3optFour.className = "option-btns q3option4";
+
+    q3optOne.textContent = questions[2].optionA;
+    q3optTwo.textContent = questions[2].optionB;
+    q3optThree.textContent = questions[2].optionC;
+    q3optFour.textContent = questions[2].optionD;
         
-    }))
-};
+    optListOne.appendChild(q3optOne);
+    optListTwo.appendChild(q3optTwo);
+    optListThree.appendChild(q3optThree);
+    optListFour.appendChild(q3optFour); 
+}
 
-// fifth question and answer
-var fifthQuestEl = function() {    
-    // If a user gets a correct answer for the fifth question, go to 'all done' page. 
-    document.getElementById("op4").addEventListener("click", function() {
-        if (answerClicked = true) {
-            correctEl();
-            endPage();
-        }   
+// show quiz question 4 and options
+var showQuizFour = function () {
+    var fourthQuestion = document.getElementById("question");
+    fourthQuestion.textContent = questions[3].questionFour;
+
+    var q4optOne = document.createElement("button");
+    var q4optTwo = document.createElement("button");
+    var q4optThree = document.createElement("button");
+    var q4optFour = document.createElement("button");
+
+    q4optOne.className = "option-btns q4option1";
+    q4optTwo.className = "option-btns q4option2";
+    q4optThree.className = "option-btns q4option3";
+    q4optFour.className = "option-btns q4option4";
+
+    q4optOne.textContent = questions[3].optionA;
+    q4optTwo.textContent = questions[3].optionB;
+    q4optThree.textContent = questions[3].optionC;
+    q4optFour.textContent = questions[3].optionD;
+        
+    optListOne.appendChild(q4optOne);
+    optListTwo.appendChild(q4optTwo);
+    optListThree.appendChild(q4optThree);
+    optListFour.appendChild(q4optFour); 
+}
+
+// show quiz question 5 and options
+var showQuizFive = function () {
+    var fifthQuestion = document.getElementById("question");
+    fifthQuestion.textContent = questions[4].questionFive;
+
+    var q5optOne = document.createElement("button");
+    var q5optTwo = document.createElement("button");
+    var q5optThree = document.createElement("button");
+    var q5optFour = document.createElement("button");
+
+    q5optOne.className = "option-btns q5option1";
+    q5optTwo.className = "option-btns q5option2";
+    q5optThree.className = "option-btns q5option3";
+    q5optFour.className = "option-btns q5option4";
+
+    q5optOne.textContent = questions[4].optionA;
+    q5optTwo.textContent = questions[4].optionB;
+    q5optThree.textContent = questions[4].optionC;
+    q5optFour.textContent = questions[4].optionD;
+        
+    optListOne.appendChild(q5optOne);
+    optListTwo.appendChild(q5optTwo);
+    optListThree.appendChild(q5optThree);
+    optListFour.appendChild(q5optFour); 
+}
+
+// when a user clicks an option of the first question
+var firstQuestEl = function () {
+    // If a user click a right option, the option 3, go to the second question with result
+    document.querySelector(".q1option3").addEventListener("click", function() {
+        correctAnswer();
+        secondQuestEl();
     })
 
-    // If a user gets a wrong answer for the fifth question, go to 'all done' page and subtract from the clock.
-    document.querySelectorAll("#op1, #op2, #op3").forEach(el => el.addEventListener("click", function() {
-        if (answerClicked = true) {
-            wrongEl();
-            endPage();
-            // totalTime = totalTime - 15;
-        }
+    // If a user click a wrong option, the option 1, or 2, 4, go to the second question with result and subtract the time
+    document.querySelectorAll(".q1option1, .q1option2, .q1option4").forEach(el => el.addEventListener("click", function() {
+        wrongAnswer();
+        secondQuestEl();
+        totalTime = totalTime - 15;
     }))
-};
+}
 
-// hide start container
-var hideStartBox = function() {
-    var startBox = document.getElementById("start-box");
-    if (startBox.style.display === "none") {
-        startBox.style.display = "flex";
-    }
-    else {
-        startBox.style.display = "none";
-    }
-};
+// when a user clicks an option of the second question
+var secondQuestEl = function () {
+    // hide the options of the first question
+    document.querySelectorAll(".q1option1, .q1option2, .q1option3, .q1option4").forEach(el => el.style.display = "none");
+    
+    // show the second question and options
+    showQuizTwo();
 
-// show result container
-var correctEl = function () {
-    var correct = document.getElementById("correct");
-    document.getElementById("quiz-result").style.display = "block";
-    correct.textContent = "Correct!";
+    // If If a user click a right option, the option 3, go to the third question with result
+    document.querySelector(".q2option3").addEventListener("click", function() {
+        correctAnswer();
+        thridQuestionEl();
+    })
+
+    // If a user click a wrong option, the option 1, or 2, 4, go to the third question with result and subtract the time
+    document.querySelectorAll(".q2option1, .q2option2, .q2option4").forEach(el => el.addEventListener("click", function() {
+        wrongAnswer();
+        thridQuestionEl();
+        totalTime = totalTime - 15;
+    }))
+}
+
+// when a user clicks an option of the third question
+var thridQuestionEl = function () {
+    // hide the options of the second question
+    document.querySelectorAll(".q2option1, .q2option2, .q2option3, .q2option4").forEach(el => el.style.display = "none");
+
+    // show the third question and options
+    showQuizThree();
+
+     // If If a user click a right option, the option 4, go to the fourth question with result
+     document.querySelector(".q3option4").addEventListener("click", function() {
+        correctAnswer();
+        fourthQuestEl();
+    })
+
+    // If a user click a wrong option, the option 1, or 2, 3, go to the fourth question with result and subtract the time
+    document.querySelectorAll(".q3option1, .q3option2, .q3option3").forEach(el => el.addEventListener("click", function() {
+        wrongAnswer();
+        fourthQuestEl();
+        totalTime = totalTime - 15;
+    }))
+}
+
+// when a user clicks an option of the fourth question
+var fourthQuestEl = function () {
+    // hide the options of the third question
+    document.querySelectorAll(".q3option1, .q3option2, .q3option3, .q3option4").forEach(el => el.style.display = "none");
+
+     // show the fourth question and options
+     showQuizFour();
+
+     // If If a user click a right option, the option 3, go to the fifth question with result
+     document.querySelector(".q4option3").addEventListener("click", function() {
+        correctAnswer();
+        fifthQuestEl();
+    })
+
+    // If a user click a wrong option, the option 1, or 2, 4, go to the fifth question with result and subtract the time
+    document.querySelectorAll(".q4option1, .q4option2, .q4option4").forEach(el => el.addEventListener("click", function() {
+        wrongAnswer();
+        fifthQuestEl();
+        totalTime = totalTime - 15;
+    }))
+}
+
+// when a user clicks an option of the fifth question
+var fifthQuestEl = function () {
+    // hide the options of the fourth question
+    document.querySelectorAll(".q4option1, .q4option2, .q4option3, .q4option4").forEach(el => el.style.display = "none");
+
+     // show the fifth question and options
+     showQuizFive();
+
+     // If If a user click a right option, the option 4, go to the end page with result
+     document.querySelector(".q5option4").addEventListener("click", function() {
+        correctAnswer();
+        // stop the timer
+        endPage();
+    })
+
+    // If a user click a wrong option, the option 1, or 2, 3, go to the end page with result and subtract the time
+    document.querySelectorAll(".q5option1, .q5option2, .q5option3").forEach(el => el.addEventListener("click", function() {
+        wrongAnswer();
+        totalTime = totalTime - 15;
+        // stop the timer
+        endPage();
+    }))
+}
+
+// show quiz result, correct/wrong
+var correctAnswer = function () {
+    result.textContent = "Correct!";
 };
    
-var wrongEl = function () {
-    var correct = document.getElementById("correct");
-    document.getElementById("quiz-result").style.display = "block";
-    correct.textContent = "Wrong!";
+var wrongAnswer = function () {
+    result.textContent = "Wrong!";
 };
 
+// show the end page
 var endPage = function () {
-    document.getElementById("quiz-box").style.display = "none";
+    // remove quiz box 
+    quizBox.style.display = "none";
     // show start container
-    document.getElementById("start-box").style.display = "flex";
-    var endTtile = document.getElementById("title");
-    endTtile.textContent = "All done!";
+    startBox.style.display = "flex";
+    // change the title    
+    title.textContent = "All done!";
     // show the final score
-    var scoreDescription = document.getElementById("how-to");
-    scoreDescription.textContent = "Your final score is" + ".";
+    scoreDescription.textContent = "Your final score is " + totalTime + ".";
     // change the start button to submit
     createSubmit();
-
-    clearInterval(totalTime);
-    
+    // disappear result after 3 seconds
+    setTimeout(function () {
+        result.style.display = "none";
+    }, 3000);
+    // stop the timer
+    document.getElementById("time").innerHTML = totalTime;
+    clearInterval(quizTimer);
+    // If a user clicks submit, show the highscores page
+    submitBtn.addEventListener("click", scoresPage);
 };
 
+// create initial input and submit button
 var createSubmit = function () {
-    var startBtnDiv = document.getElementById("start-btn-box");
-    startBtnDiv.remove();
-    var startBox = document.getElementById("start-box");    
+    // remove the start button
+    document.getElementById("start-btn-box").style.display = "none";
+    
+    // create submit container
     var inputDiv = document.createElement("div");
     var textInput = document.createElement("input");
     var enterInitials = document.createElement("p");
-    var submitBtn = document.createElement("button")
+
     inputDiv.className = "input-div";
     enterInitials.className = "enter-initials";
     enterInitials.textContent = "Enter initials:";
@@ -328,12 +375,64 @@ var createSubmit = function () {
     submitBtn.className = "submit-btn";
     submitBtn.textContent = "Submit";
     
-    startBox.appendChild(inputDiv);
+    contentBox.appendChild(inputDiv);
     inputDiv.appendChild(enterInitials);
     inputDiv.appendChild(textInput);
     inputDiv.appendChild(submitBtn);
-    
 }
 
+// show highscores page
+var scoresPage = function () {
+    // save the score
+    var initialInput = document.querySelector(".text-input").value;
+    localStorage.setItem(initialInput, totalTime);
+    // chage the title
+    title.textContent = "Highscores";
+    // hide the submit container and result 
+    contentBox.style.display = "none";
+    result.style.display = "none";
+    // create score list, go back button and clear highscores button
+    var scoresDiv = document.createElement("div");
+    var listDiv = document.createElement("div");
+    var btnDiv = document.createElement("div");
+    var scoresList = document.createElement("p");
+    var goBackbtn = document.createElement("button")
+    var clearScoresbtn = document.createElement("button");
+    var highscores = localStorage.getItem(initialInput);
+  
+    listDiv.className = "list-div";
+    btnDiv.className = "btn-div";
+    scoresDiv.className = "highscores-box";
+    scoresList.className = "highscores-list";
+    goBackbtn.className = "go-back-btn";
+    clearScoresbtn.className = "clear-highscores-btn";
+  
+    scoresList.textContent = "1. " + initialInput + " - " + highscores;
+    goBackbtn.textContent = "Go Back";
+    clearScoresbtn.textContent = "Clear Highscores";
+  
+    startBox.appendChild(scoresDiv);
+    scoresDiv.appendChild(listDiv);
+    scoresDiv.appendChild(btnDiv);
+    listDiv.appendChild(scoresList);
+    btnDiv.appendChild(goBackbtn);
+    btnDiv.appendChild(clearScoresbtn);
 
+    // If the go back button is clicked, go to the quiz start page
+    goBackbtn.addEventListener("click", reload);
+
+    // If the clear highscores button is clicked, remove the score list and the score saved in localstorage
+    clearScoresbtn.addEventListener("click", function() {
+        localStorage.removeItem(initialInput);
+        listDiv.style.display = "none";
+    })
+}
+
+// reload the page
+var reload = function () {
+    location.reload();
+}
+
+// If a user click the start button, quiz will start
 startBtn.addEventListener("click", startQuiz);
+
