@@ -39,7 +39,7 @@
 }
 
 
-.title, p {
+.title, p, .highscores-list {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: center;
 }
@@ -54,10 +54,10 @@ ul.opt-list {
     padding: 0;
 }
 
-.start-btn, .option-btns {
+.start-btn, .submit-btn, .option-btns, .go-back-btn, .clear-highscores-btn {
     background-color: #bdb2ff;
     color: white;
-    font-size: 2.3vh;
+    font-size: 2vh;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     border-radius: 10px;
     border-color: #bdb2ff;
@@ -79,7 +79,7 @@ ul.opt-list {
     width: 50%;
 }
 
-.input-div {
+.input-div, .highscores-box {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -92,12 +92,10 @@ ul.opt-list {
     border: solid #610b61;
 }
 
-.submit-btn {
-    margin-left: 10px;
-    background-color: #bdb2ff;
-    color: white;
-    font-size: 2vh;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    border-radius: 10px;
-    border-color: #bdb2ff;
+.list-div {
+    width: 70%;
+    height: 35px;
+    background-color: #e8e4fa;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
 }

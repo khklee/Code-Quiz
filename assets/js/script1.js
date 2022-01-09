@@ -45,6 +45,7 @@ var score = document.getElementById("time");
 var startBtn = document.getElementById("start-btn");
 var startBox = document.getElementById("start-box");
 var title = document.getElementById("title");
+var titleBox = document.getElementById("title-box");
 var scoreDescription = document.getElementById("how-to");
 
 var quizBox = document.getElementById("quiz-box");
@@ -347,11 +348,57 @@ var endPage = function () {
     submitBtn.addEventListener("click", scoresPage);
 };
 
+var scoresPage = function () {
+    // save the score
+    var initialInput = document.querySelector(".text-input").value;
+    localStorage.setItem(initialInput, totalTime);
+    // create highscores page
+    // chage the title
+    title.textContent = "Highscores";
+    // hide the submit container and result 
+    contentBox.style.display = "none";
+    result.style.display = "none";
+    // create score list, go back button and clear highscores button
+    var scoresDiv = document.createElement("div");
+    var listDiv = document.createElement("div");
+    var btnDiv = document.createElement("div");
+    var scoresList = document.createElement("p");
+    var goBackbtn = document.createElement("button")
+    var clearScoresbtn = document.createElement("button");
+    var highscores = localStorage.getItem(initialInput);
+  
+    listDiv.className = "list-div";
+    btnDiv.className = "btn-div";
+    scoresDiv.className = "highscores-box";
+    scoresList.className = "highscores-list";
+    goBackbtn.className = "go-back-btn";
+    clearScoresbtn.className = "clear-highscores-btn";
+  
+    scoresList.textContent = "1. " + initialInput + " - " + highscores;
+    goBackbtn.textContent = "Go Back";
+    clearScoresbtn.textContent = "Clear Highscores";
+  
+    startBox.appendChild(scoresDiv);
+    scoresDiv.appendChild(listDiv);
+    scoresDiv.appendChild(btnDiv);
+    listDiv.appendChild(scoresList);
+    btnDiv.appendChild(goBackbtn);
+    btnDiv.appendChild(clearScoresbtn);
+
+    // If the go back button is clicked, go to the quiz start page
+    goBackbtn.addEventListener("click", reload);
+
+    // If the clear highscores button is clicked
+    clearScoresbtn.addEventListener("click", function() {
+        localStorage.removeItem(initialInput);
+        listDiv.style.display = "none";
+    })
+}
+
 var createSubmit = function () {
     // remove the start button
-    var startBtnDiv = document.getElementById("start-btn-box");
-    startBtnDiv.remove();
-
+    document.getElementById("start-btn-box").style.display = "none";
+    
     // create submit container
     var inputDiv = document.createElement("div");
     var textInput = document.createElement("input");
@@ -371,30 +418,8 @@ var createSubmit = function () {
     inputDiv.appendChild(submitBtn);
 }
 
-var scoresPage = function () {
-    // save the score
-    var initialInput = document.querySelector(".text-input").value;
-    localStorage.setItem(initialInput, totalTime);
-    // chage the title
-    title.textContent = "Highscores";
-    // hide the submit container and result 
-    contentBox.style.display = "none";
-    result.style.display = "none";
-    // create the highscores container
-    var scoresDiv = document.createElement("div");
-    var scoresList = document.createElement("li");
-    var goBackbtn = document.createElement("button")
-    var clearScoresbtn = document.createElement("button");
-
-    scoresDiv.className = "highscores-box";
-    scoresList.className = "highscores-list";
-    goBackbtn.className = "go-back-btn";
-    clearScoresbtn.className = "clear-highscores-btn";
-
-    quizBox.appendChild(scoresDiv);
-    scoresDiv.appendChild(scoresList);
-    scoresDiv.appendChild(goBackbtn);
-    scoresDiv.appendChild(clearScoresbtn);
+var reload = function () {
+    location.reload();
 }
 
 startBtn.addEventListener("click", startQuiz);
